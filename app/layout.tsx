@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 import "./globals.css";
-
-const pixelFont = localFont({
-  src: "fonts/ibm_vga_9x16.woff",
-});
+import { ThemeProvider } from "@mui/material/styles";
+import { theme } from "@/app/_theme/theme";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -18,7 +16,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={pixelFont.className}>{children}</body>
+      <body>
+        <AppRouterCacheProvider>
+          <ThemeProvider theme={theme}>{children}</ThemeProvider>
+        </AppRouterCacheProvider>
+      </body>
     </html>
   );
 }
