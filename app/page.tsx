@@ -1,6 +1,6 @@
 import Image from "next/image";
 import styles from "./page.module.css";
-import { TextField } from "@mui/material";
+import { TextField } from "@/components/TextField/TextField";
 
 export default function Home() {
   return (
@@ -30,7 +30,11 @@ export default function Home() {
       </div>
 
       <div className={styles.center}>
-        <TextField label="Label" />
+        <TextField
+          label="Label"
+          errorText="Error text"
+          helperText="Helper text"
+        />
       </div>
 
       <div className={styles.grid}>
