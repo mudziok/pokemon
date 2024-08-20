@@ -2,15 +2,16 @@
 
 import { TextField } from "@/components/TextField/TextField";
 import Autocomplete from "@/components/Autocomplete/Autocomplete";
-import { Grid, Paper } from "@mui/material";
+import { Grid } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
-import { getPokemonList } from "@/api/pokemon/api";
+import { getPokemon, getPokemonList } from "@/api/pokemon/api";
 import { useState } from "react";
+import { PokedexEntry } from "@/components/PokedexEntry/PokedexEntry";
 
 const PokemonAutocomplete = () => {
   const [inputValue, setInputValue] = useState("");
   const { data: pokemonList = [], isLoading } = useQuery({
-    queryKey: ["pokemon", inputValue],
+    queryKey: ["pokemon-list", inputValue],
     queryFn: () => getPokemonList({ name: inputValue }),
   });
 
@@ -33,27 +34,33 @@ const PokemonAutocomplete = () => {
 };
 
 export function CreateTrainerForm() {
+  const { data: pokemon } = useQuery({
+    queryKey: ["pokemon", 1],
+    queryFn: () => getPokemon({ id: 1 }),
+  });
+
   return (
-    <Paper variant="outlined" sx={{ padding: 4 }}>
-      <Grid container spacing={3}>
-        <Grid item xs={6}>
-          <TextField
-            fullWidth
-            placeholder="Trainer's name"
-            label="Trainer's name"
-          />
-        </Grid>
-        <Grid item xs={6}>
-          <TextField
-            fullWidth
-            placeholder="Trainer's age"
-            label="Trainer's age"
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <PokemonAutocomplete />
-        </Grid>
+    <Grid container spacing={3}>
+      <Grid item xs={6}>
+        <TextField
+          fullWidth
+          placeholder="Trainer's name"
+          label="Trainer's name"
+        />
       </Grid>
-    </Paper>
+      <Grid item xs={6}>
+        <TextField
+          fullWidth
+          placeholder="Trainer's age"
+          label="Trainer's age"
+        />
+      </Grid>
+      <Grid item xs={12}>
+        <PokemonAutocomplete />
+      </Grid>
+      <Grid item xs={12}>
+        <PokedexEntry pokemon={pokemon} />
+      </Grid>
+    </Grid>
   );
 }

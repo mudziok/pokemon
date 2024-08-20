@@ -1,6 +1,6 @@
 "use client";
 
-import MuiAutocomplete, { AutocompleteProps } from "@mui/material/Autocomplete";
+import MuiAutocomplete from "@mui/material/Autocomplete";
 import { TextField, TextFieldProps } from "@/components/TextField/TextField";
 
 type Option = {
