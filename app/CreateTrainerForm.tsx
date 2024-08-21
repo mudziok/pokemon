@@ -14,6 +14,7 @@ import { Trainer, trainerSchema } from "@/api/trainer/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PokemonSummary } from "@/api/pokemon/schema";
 import { capitalize } from "@/utils/capitalize";
+import { Button } from "@/components/Button/Button";
 
 const PokemonAutocomplete = (
   props: Omit<AutocompleteProps<PokemonSummary>, "options">
@@ -67,9 +68,8 @@ const PokemonPreview = ({
 };
 
 export function CreateTrainerForm() {
-  const { handleSubmit, control } = useForm<Trainer>({
+  const { handleSubmit, control, reset } = useForm<Trainer>({
     resolver: zodResolver(trainerSchema),
-    mode: "onChange",
   });
   const onSubmit: SubmitHandler<Trainer> = (data) => console.log(data);
 
@@ -136,6 +136,19 @@ export function CreateTrainerForm() {
               <PokemonPreview pokemonId={selectedPokemonId} />
             </Stack>
           </Paper>
+        </Grid>
+        <Grid item xs={12}>
+          <Stack
+            direction="row"
+            justifyContent="flex-end"
+            gap={2}
+            sx={{ width: "100%" }}
+          >
+            <Button variant="soft" onClick={() => reset({})}>
+              Reset
+            </Button>
+            <Button type="submit">Submit</Button>
+          </Stack>
         </Grid>
       </Grid>
     </form>
