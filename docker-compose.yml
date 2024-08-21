@@ -14,3 +14,16 @@ services:
       - .:/app
     ports:
       - "3000:3000"
+    profiles: [dev]
+
+  build:
+    container_name: pokemon-build
+    build:
+      context: .
+      dockerfile: ./docker/build/Dockerfile
+    restart: always
+    environment:
+      - NODE_ENV=production
+    ports:
+      - "3000:3000"
+    profiles: [build]

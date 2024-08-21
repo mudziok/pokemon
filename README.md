@@ -14,7 +14,7 @@ npm run dev
 Or using a docker container (prerequisites: `docker`, `docker-compose`):
 
 ```bash
-docker-compose up
+docker-compose --profile dev up
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
@@ -35,3 +35,9 @@ Hot module replacement works in both environments.
 The easiest way to deploy this app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 [Check out an example deployment here!](https://pokemon-tau-lyart.vercel.app/)
+
+You can also deploy this app as a docker container:
+
+```bash
+docker-compose --profile build up
+```
