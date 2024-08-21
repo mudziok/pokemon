@@ -1,10 +1,12 @@
-"use client";
 import { Container, Stack } from "@mui/material";
-import { CreateTrainerForm } from "@/app/CreateTrainerForm";
-import { pokemonListQuery, pokemonQuery } from "@/data/pokemon/query";
 import { Paper } from "@/components/Paper/Paper";
+import { Clock } from "@/app/Clock";
+import { CreateTrainerFormWithQueries } from "@/app/CreateTrainerFormWithQueries";
+import { getTime } from "@/data/time/api";
 
-export default function Home() {
+export default async function Home() {
+  const { dateTime } = await getTime();
+
   return (
     <Container maxWidth="sm" sx={{ height: "100vh" }}>
       <Stack
@@ -13,10 +15,10 @@ export default function Home() {
         paddingY={2}
       >
         <Paper sx={{ padding: 4 }}>
-          <CreateTrainerForm
-            pokemonListQuery={pokemonListQuery}
-            pokemonQuery={pokemonQuery}
-          />
+          <Stack gap={3} alignItems="flex-end">
+            <Clock date={new Date(dateTime)} />
+            <CreateTrainerFormWithQueries />
+          </Stack>
         </Paper>
       </Stack>
     </Container>

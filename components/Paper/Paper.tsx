@@ -1,3 +1,5 @@
+"use client";
+
 import { PaperProps, Paper as MuiPaper, styled } from "@mui/material";
 
 export const StyledPaper = styled(MuiPaper)(({ theme }) => ({
