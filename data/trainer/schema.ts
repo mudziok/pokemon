@@ -1,4 +1,4 @@
-import { pokemonSummarySchema } from "@/api/pokemon/schema";
+import { pokemonSummarySchema } from "@/data/pokemon/schema";
 import { z } from "zod";
 
 const nameLengthRequirementMessage = "Required from 2 to 20 symbols";

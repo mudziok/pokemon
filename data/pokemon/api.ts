@@ -1,4 +1,4 @@
-import { pokemonSchema, pokemonSummarySchema } from "@/api/pokemon/schema";
+import { pokemonSchema, pokemonSummarySchema } from "@/data/pokemon/schema";
 
 export const getPokemonList = async ({ name }: { name?: string }) => {
   const response = await fetch(`/api/pokemon?name=${name}`, {});

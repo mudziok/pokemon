@@ -1,4 +1,4 @@
-import { Pokemon } from "@/api/pokemon/schema";
+import { Pokemon } from "@/data/pokemon/schema";
 
 export const createPokemon = (pokemon: Partial<Pokemon> = {}): Pokemon => {
   return {

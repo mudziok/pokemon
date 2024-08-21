@@ -1,7 +1,7 @@
 "use client";
 import { Container, Stack } from "@mui/material";
 import { CreateTrainerForm } from "@/app/CreateTrainerForm";
-import { pokemonListQuery, pokemonQuery } from "@/api/pokemon/query";
+import { pokemonListQuery, pokemonQuery } from "@/data/pokemon/query";
 import { Paper } from "@/components/Paper/Paper";
 
 export default function Home() {

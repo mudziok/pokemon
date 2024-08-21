@@ -1,5 +1,5 @@
 import { promises as fs } from "fs";
-import { PokemonSummary, pokemonSummarySchema } from "@/api/pokemon/schema";
+import { PokemonSummary, pokemonSummarySchema } from "@/data/pokemon/schema";
 import { z } from "zod";
 import Fuse from "fuse.js";
 import { NextRequest, NextResponse } from "next/server";

@@ -1,5 +1,5 @@
-import { getPokemon, getPokemonList } from "@/api/pokemon/api";
-import { Pokemon, PokemonSummary } from "@/api/pokemon/schema";
+import { getPokemon, getPokemonList } from "@/data/pokemon/api";
+import { Pokemon, PokemonSummary } from "@/data/pokemon/schema";
 import { UseQueryOptions } from "@tanstack/react-query";
 
 export type PokemonListQueryOptions = ({

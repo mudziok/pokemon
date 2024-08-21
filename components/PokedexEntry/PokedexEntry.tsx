@@ -1,5 +1,5 @@
-import { getPokemonSprite } from "@/api/pokemon/api";
-import { Pokemon } from "@/api/pokemon/schema";
+import { getPokemonSprite } from "@/data/pokemon/api";
+import { Pokemon } from "@/data/pokemon/schema";
 import { capitalize } from "@/utils/capitalize";
 import { Chip, Grid, Stack, styled, Typography } from "@mui/material";
 import Image from "next/image";

@@ -1,5 +1,5 @@
-import { PokemonQuery } from "@/api/pokemon/query";
-import { PokemonSummary } from "@/api/pokemon/schema";
+import { PokemonQuery } from "@/data/pokemon/query";
+import { PokemonSummary } from "@/data/pokemon/schema";
 import { PokedexEntry } from "@/components/PokedexEntry/PokedexEntry";
 import { Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";

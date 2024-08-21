@@ -1,5 +1,5 @@
 import { cleanup, render, screen } from "@testing-library/react";
-import { createPokemon } from "@/api/pokemon/mock";
+import { createPokemon } from "@/data/pokemon/mock";
 import { PokedexEntry } from "@/components/PokedexEntry/PokedexEntry";
 
 const pikachu = createPokemon();

@@ -7,7 +7,7 @@ import {
 } from "@testing-library/react";
 import { CreateTrainerForm } from "@/app/CreateTrainerForm";
 import { QueryProvider } from "@/app/_providers/QueryProvider";
-import { createPokemon } from "@/api/pokemon/mock";
+import { createPokemon } from "@/data/pokemon/mock";
 
 const mockPokemonListQuery = ({ name }: { name: string }) => ({
   queryKey: ["pokemon-list", name],

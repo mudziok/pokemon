@@ -1,5 +1,5 @@
-import { PokemonListQueryOptions } from "@/api/pokemon/query";
-import { PokemonSummary } from "@/api/pokemon/schema";
+import { PokemonListQueryOptions } from "@/data/pokemon/query";
+import { PokemonSummary } from "@/data/pokemon/schema";
 import Autocomplete, {
   AutocompleteProps,
 } from "@/components/Autocomplete/Autocomplete";

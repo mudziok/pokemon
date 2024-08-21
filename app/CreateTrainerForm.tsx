@@ -3,10 +3,10 @@
 import { TextField } from "@/components/TextField/TextField";
 import { Grid, Stack } from "@mui/material";
 import { Controller, SubmitHandler, useForm, useWatch } from "react-hook-form";
-import { Trainer, trainerSchema } from "@/api/trainer/schema";
+import { Trainer, trainerSchema } from "@/data/trainer/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/Button/Button";
-import { PokemonListQueryOptions, PokemonQuery } from "@/api/pokemon/query";
+import { PokemonListQueryOptions, PokemonQuery } from "@/data/pokemon/query";
 import { PokemonPreview } from "@/app/PokemonPreview";
 import { PokemonAutocomplete } from "@/app/PokemonAutocomplete";
 import { CreateTrainerSuccessAlert } from "@/app/CreateTrainerSuccessAlert";
