@@ -43,7 +43,7 @@ export const ButtonInput = styled(ButtonBase)<ButtonProps>(
         boxShadow: "0px 0px 0px 4px #9747FF40",
       },
     }),
-  })
+  }),
 );
 
 export const Button = ({ variant = "primary", ...props }: ButtonProps) => {

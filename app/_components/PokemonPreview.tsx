@@ -12,7 +12,7 @@ export const PokemonPreview = ({
   pokemonQuery: PokemonQuery;
 }) => {
   const { data: pokemon, isLoading } = useQuery(
-    pokemonQuery({ id: pokemonId })
+    pokemonQuery({ id: pokemonId }),
   );
 
   if (isLoading) {

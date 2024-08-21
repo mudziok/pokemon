@@ -50,7 +50,7 @@ export type TextFieldProps = InputBaseProps & {
 
 export const TextField = forwardRef(function TextField(
   props: TextFieldProps,
-  ref
+  ref,
 ) {
   const { label, helperText, errorText, ...rest } = props;
   const isFormHelperTextVisible = Boolean(helperText || errorText);

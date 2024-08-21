@@ -16,7 +16,7 @@ describe("TextField", () => {
 
   test("favors error text over helper text", () => {
     render(
-      <TextField errorText="Error text" helperText="Helper text" id="test" />
+      <TextField errorText="Error text" helperText="Helper text" id="test" />,
     );
 
     expect(screen.getByText("Error text")).toBeInTheDocument();

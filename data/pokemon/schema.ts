@@ -9,7 +9,7 @@ export const pokemonSchema = z.object({
       type: z.object({
         name: z.string(),
       }),
-    })
+    }),
   ),
 });
 

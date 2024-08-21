@@ -11,7 +11,7 @@ import { useState } from "react";
 export const PokemonAutocomplete = (
   props: Omit<AutocompleteProps<PokemonSummary>, "options"> & {
     pokemonListQuery: PokemonListQueryOptions;
-  }
+  },
 ) => {
   const { pokemonListQuery, ...inputProps } = props;
   const [searchName, setSearchName] = useState("");
@@ -19,7 +19,7 @@ export const PokemonAutocomplete = (
   const isDebouncing = searchName !== debouncedInputValue;
 
   const { data: pokemonList = [], isLoading: isQueryLoading } = useQuery(
-    pokemonListQuery({ name: debouncedInputValue })
+    pokemonListQuery({ name: debouncedInputValue }),
   );
 
   const isLoading = isQueryLoading || isDebouncing;

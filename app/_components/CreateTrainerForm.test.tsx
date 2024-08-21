@@ -31,7 +31,7 @@ describe("CreateTrainerForm", () => {
           pokemonListQuery={mockPokemonListQuery}
           pokemonQuery={mockPokemonQuery}
         />
-      </QueryProvider>
+      </QueryProvider>,
     );
     expect(await screen.findByText("Submit")).toBeInTheDocument();
 
@@ -61,7 +61,7 @@ describe("CreateTrainerForm", () => {
           pokemonListQuery={mockPokemonListQuery}
           pokemonQuery={mockPokemonQuery}
         />
-      </QueryProvider>
+      </QueryProvider>,
     );
 
     expect(await screen.findByText("Submit")).toBeInTheDocument();
