@@ -3,9 +3,11 @@ import { PokemonSummary, pokemonSummarySchema } from "@/api/pokemon/schema";
 import { z } from "zod";
 import Fuse from "fuse.js";
 import { NextRequest, NextResponse } from "next/server";
+import path from "path";
 
-async function readJSON(path: string) {
-  const file = await fs.readFile(path, "utf8");
+async function readJSON(filePath: string) {
+  const fullPath = path.join(process.cwd(), filePath);
+  const file = await fs.readFile(fullPath, "utf8");
   return JSON.parse(file);
 }
 
