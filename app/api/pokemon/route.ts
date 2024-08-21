@@ -6,13 +6,13 @@ import { NextRequest, NextResponse } from "next/server";
 import path from "path";
 
 async function readJSON(filePath: string) {
-  const fullPath = path.join(process.cwd(), filePath);
+  const fullPath = path.join(process.cwd(), "public", filePath);
   const file = await fs.readFile(fullPath, "utf8");
   return JSON.parse(file);
 }
 
 export async function GET(request: NextRequest) {
-  const data = await readJSON("./pokemon.json");
+  const data = await readJSON("pokemon.json");
   const { data: pokemons } = z
     .object({ data: z.array(pokemonSummarySchema) })
     .parse(data);
