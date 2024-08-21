@@ -19,6 +19,8 @@ const mockPokemonQuery = ({ id }: { id?: number }) => ({
   queryFn: () => createPokemon({ id }),
 });
 
+jest.useFakeTimers();
+
 describe("CreateTrainerForm", () => {
   beforeEach(cleanup);
 
@@ -42,6 +44,7 @@ describe("CreateTrainerForm", () => {
 
     const combobox = screen.getByRole("combobox");
     fireEvent.change(combobox, { target: { value: "pikachu" } });
+    jest.runAllTimers();
 
     const listbox = await waitFor(() => screen.getByRole("listbox"));
     fireEvent.click(listbox.firstChild!);
