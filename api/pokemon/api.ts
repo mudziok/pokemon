@@ -6,7 +6,11 @@ export const getPokemonList = async ({ name }: { name?: string }) => {
   return pokemonList;
 };
 
-export const getPokemon = async ({ id }: { id: number }) => {
+export const getPokemon = async ({ id }: { id?: number }) => {
+  if (!id) {
+    return null;
+  }
+
   const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`);
   const pokemon = pokemonSchema.parse(await response.json());
   return pokemon;

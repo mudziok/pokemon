@@ -62,7 +62,7 @@ export const TextField = forwardRef(function TextField(
           {label}
         </InputLabel>
       )}
-      <TextFieldInput ref={ref} {...rest} />
+      <TextFieldInput ref={ref} {...rest} value={rest.value ?? ""} />
       {isFormHelperTextVisible && (
         <FormHelperText error={!!errorText}>
           {errorText ?? helperText}
