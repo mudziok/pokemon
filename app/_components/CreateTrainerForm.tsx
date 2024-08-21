@@ -7,9 +7,9 @@ import { Trainer, trainerSchema } from "@/data/trainer/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/Button/Button";
 import { PokemonListQueryOptions, PokemonQuery } from "@/data/pokemon/query";
-import { PokemonPreview } from "@/app/PokemonPreview";
-import { PokemonAutocomplete } from "@/app/PokemonAutocomplete";
-import { CreateTrainerSuccessAlert } from "@/app/CreateTrainerSuccessAlert";
+import { PokemonPreview } from "@/app/_components/PokemonPreview";
+import { PokemonAutocomplete } from "@/app/_components/PokemonAutocomplete";
+import { CreateTrainerSuccessAlert } from "@/app/_components/CreateTrainerSuccessAlert";
 import { useState } from "react";
 import { Paper } from "@/components/Paper/Paper";
 

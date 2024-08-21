@@ -1,7 +1,7 @@
 import { Container, Stack } from "@mui/material";
 import { Paper } from "@/components/Paper/Paper";
-import { Clock } from "@/app/Clock";
-import { CreateTrainerFormWithQueries } from "@/app/CreateTrainerFormWithQueries";
+import { Clock } from "@/app/_components/Clock";
+import { CreateTrainerFormWithQueries } from "@/app/_components/CreateTrainerFormWithQueries";
 import { getTime } from "@/data/time/api";
 
 export default async function Home() {

@@ -5,7 +5,7 @@ import {
   screen,
   waitFor,
 } from "@testing-library/react";
-import { CreateTrainerForm } from "@/app/CreateTrainerForm";
+import { CreateTrainerForm } from "@/app/_components/CreateTrainerForm";
 import { QueryProvider } from "@/app/_providers/QueryProvider";
 import { createPokemon } from "@/data/pokemon/mock";
 
