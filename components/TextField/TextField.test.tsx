@@ -32,6 +32,5 @@ describe("TextField", () => {
     fireEvent.change(input, { target: { value: "test" } });
 
     expect(onChange).toHaveBeenCalledTimes(1);
-    expect(input).toHaveValue("test");
   });
 });

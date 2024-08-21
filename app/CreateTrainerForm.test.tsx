@@ -31,6 +31,7 @@ describe("CreateTrainerForm", () => {
         />
       </QueryProvider>
     );
+    expect(await screen.findByText("Submit")).toBeInTheDocument();
 
     fireEvent.change(screen.getByLabelText(/Trainer's name/i), {
       target: { value: "Ash Ketchum" },
@@ -46,5 +47,25 @@ describe("CreateTrainerForm", () => {
       timeout: 100,
     });
     fireEvent.click(listbox.firstChild!);
+
+    fireEvent.click(screen.getByText("Submit"));
+
+    expect(await screen.findByText("Success")).toBeInTheDocument();
+  });
+
+  test("displays errors after incorrect submission", async () => {
+    render(
+      <QueryProvider>
+        <CreateTrainerForm
+          pokemonListQuery={mockPokemonListQuery}
+          pokemonQuery={mockPokemonQuery}
+        />
+      </QueryProvider>
+    );
+
+    expect(await screen.findByText("Submit")).toBeInTheDocument();
+    fireEvent.click(screen.getByText("Submit"));
+
+    expect(await screen.findAllByRole("alert")).toHaveLength(3);
   });
 });

@@ -64,7 +64,7 @@ export const TextField = forwardRef(function TextField(
       )}
       <TextFieldInput ref={ref} {...rest} value={rest.value ?? ""} />
       {isFormHelperTextVisible && (
-        <FormHelperText error={!!errorText}>
+        <FormHelperText error={!!errorText} role="alert">
           {errorText ?? helperText}
         </FormHelperText>
       )}
