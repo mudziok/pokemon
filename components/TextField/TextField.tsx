@@ -26,7 +26,7 @@ export const TextFieldInput = styled(InputBase)(({ theme }) => ({
       duration: "0.1s",
     }),
 
-    "&::placeholder": {
+    "input::placeholder": {
       color: theme.palette.grey[200],
       opacity: 1,
     },

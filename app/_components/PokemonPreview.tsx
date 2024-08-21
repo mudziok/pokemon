@@ -17,7 +17,7 @@ export const PokemonPreview = ({
 
   if (isLoading) {
     return (
-      <Typography color={(theme) => theme.palette.grey[200]}>
+      <Typography color={(theme) => theme.palette.grey[200]} fontSize={12}>
         Loading...
       </Typography>
     );
@@ -25,7 +25,7 @@ export const PokemonPreview = ({
 
   if (!pokemon) {
     return (
-      <Typography color={(theme) => theme.palette.grey[200]}>
+      <Typography color={(theme) => theme.palette.grey[200]} fontSize={12}>
         Your pokemon
       </Typography>
     );
