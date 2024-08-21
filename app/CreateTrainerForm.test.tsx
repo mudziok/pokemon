@@ -1,0 +1,50 @@
+import {
+  cleanup,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from "@testing-library/react";
+import { CreateTrainerForm } from "@/app/CreateTrainerForm";
+import { QueryProvider } from "@/app/_providers/QueryProvider";
+import { createPokemon } from "@/api/pokemon/mock";
+
+const mockPokemonListQuery = ({ name }: { name: string }) => ({
+  queryKey: ["pokemon-list", name],
+  queryFn: () => [createPokemon()],
+});
+
+const mockPokemonQuery = ({ id }: { id?: number }) => ({
+  queryKey: ["pokemon", id],
+  queryFn: () => createPokemon({ id }),
+});
+
+describe("CreateTrainerForm", () => {
+  beforeEach(cleanup);
+
+  test("can be filled", async () => {
+    render(
+      <QueryProvider>
+        <CreateTrainerForm
+          pokemonListQuery={mockPokemonListQuery}
+          pokemonQuery={mockPokemonQuery}
+        />
+      </QueryProvider>
+    );
+
+    fireEvent.change(screen.getByLabelText(/Trainer's name/i), {
+      target: { value: "Ash Ketchum" },
+    });
+    fireEvent.change(screen.getByLabelText(/Trainer's age/i), {
+      target: { value: "21" },
+    });
+
+    const combobox = screen.getByRole("combobox");
+    fireEvent.change(combobox, { target: { value: "pikachu" } });
+
+    const listbox = await waitFor(() => screen.getByRole("listbox"), {
+      timeout: 100,
+    });
+    fireEvent.click(listbox.firstChild!);
+  });
+});

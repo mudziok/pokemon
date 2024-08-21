@@ -6,7 +6,7 @@ import Autocomplete, {
 } from "@/components/Autocomplete/Autocomplete";
 import { Grid, Paper, Stack, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
-import { getPokemon, getPokemonList } from "@/api/pokemon/api";
+import { getPokemon } from "@/api/pokemon/api";
 import { useState } from "react";
 import { PokedexEntry } from "@/components/PokedexEntry/PokedexEntry";
 import { Controller, SubmitHandler, useForm, useWatch } from "react-hook-form";
@@ -15,15 +15,18 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { PokemonSummary } from "@/api/pokemon/schema";
 import { capitalize } from "@/utils/capitalize";
 import { Button } from "@/components/Button/Button";
+import { PokemonListQueryOptions, PokemonQuery } from "@/api/pokemon/query";
 
 const PokemonAutocomplete = (
-  props: Omit<AutocompleteProps<PokemonSummary>, "options">
+  props: Omit<AutocompleteProps<PokemonSummary>, "options"> & {
+    pokemonListQuery: PokemonListQueryOptions;
+  }
 ) => {
+  const { pokemonListQuery, ...inputProps } = props;
   const [inputValue, setInputValue] = useState("");
-  const { data: pokemonList = [], isLoading } = useQuery({
-    queryKey: ["pokemon-list", inputValue],
-    queryFn: () => getPokemonList({ name: inputValue }),
-  });
+  const { data: pokemonList = [], isLoading } = useQuery(
+    pokemonListQuery({ name: inputValue })
+  );
 
   return (
     <Autocomplete
@@ -33,20 +36,21 @@ const PokemonAutocomplete = (
       isOptionEqualToValue={(option, value) => option.id === value.id}
       loading={isLoading}
       options={pokemonList}
-      {...props}
+      {...inputProps}
     />
   );
 };
 
 const PokemonPreview = ({
   pokemonId,
+  pokemonQuery,
 }: {
   pokemonId?: PokemonSummary["id"];
+  pokemonQuery: PokemonQuery;
 }) => {
-  const { data: pokemon, isLoading } = useQuery({
-    queryKey: ["pokemon", pokemonId],
-    queryFn: () => getPokemon({ id: pokemonId }),
-  });
+  const { data: pokemon, isLoading } = useQuery(
+    pokemonQuery({ id: pokemonId })
+  );
 
   if (isLoading) {
     return (
@@ -67,11 +71,19 @@ const PokemonPreview = ({
   return <PokedexEntry pokemon={pokemon} />;
 };
 
-export function CreateTrainerForm() {
+interface CreateTrainerFormProps {
+  pokemonListQuery: PokemonListQueryOptions;
+  pokemonQuery: PokemonQuery;
+}
+
+export function CreateTrainerForm({
+  pokemonListQuery,
+  pokemonQuery,
+}: CreateTrainerFormProps) {
   const { handleSubmit, control, reset } = useForm<Trainer>({
     resolver: zodResolver(trainerSchema),
   });
-  const onSubmit: SubmitHandler<Trainer> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<Trainer> = (data) => {};
 
   const { pokemon: selectedPokemon } = useWatch({ control });
   const selectedPokemonId = selectedPokemon?.id;
@@ -88,6 +100,7 @@ export function CreateTrainerForm() {
                 fullWidth
                 placeholder="Trainer's name"
                 label="Trainer's name"
+                id="name"
                 errorText={error?.message}
                 {...field}
               />
@@ -103,6 +116,7 @@ export function CreateTrainerForm() {
                 fullWidth
                 placeholder="Trainer's age"
                 label="Trainer's age"
+                id="age"
                 errorText={error?.message}
                 {...field}
               />
@@ -115,10 +129,12 @@ export function CreateTrainerForm() {
             name="pokemon"
             render={({ field, fieldState: { error } }) => (
               <PokemonAutocomplete
+                pokemonListQuery={pokemonListQuery}
                 fullWidth
                 label="Pokemon"
                 placeholder="Choose"
                 errorText={error?.message}
+                id="pokemon"
                 value={field.value}
                 onChange={(_, value) => field.onChange(value ?? undefined)}
               />
@@ -133,7 +149,10 @@ export function CreateTrainerForm() {
               minHeight={254}
               padding={2}
             >
-              <PokemonPreview pokemonId={selectedPokemonId} />
+              <PokemonPreview
+                pokemonId={selectedPokemonId}
+                pokemonQuery={pokemonQuery}
+              />
             </Stack>
           </Paper>
         </Grid>
