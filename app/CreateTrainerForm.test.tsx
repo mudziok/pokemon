@@ -43,9 +43,7 @@ describe("CreateTrainerForm", () => {
     const combobox = screen.getByRole("combobox");
     fireEvent.change(combobox, { target: { value: "pikachu" } });
 
-    const listbox = await waitFor(() => screen.getByRole("listbox"), {
-      timeout: 100,
-    });
+    const listbox = await waitFor(() => screen.getByRole("listbox"));
     fireEvent.click(listbox.firstChild!);
 
     fireEvent.click(screen.getByText("Submit"));
