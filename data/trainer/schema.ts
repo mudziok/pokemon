@@ -10,7 +10,7 @@ export const trainerSchema = z.object({
     .min(2, nameLengthRequirementMessage)
     .max(20, nameLengthRequirementMessage),
   age: z.coerce
-    .number()
+    .number({ invalid_type_error: "Age must be an integer" })
     .int()
     .min(16, ageRangeRequirementMessage)
     .max(99, ageRangeRequirementMessage),
