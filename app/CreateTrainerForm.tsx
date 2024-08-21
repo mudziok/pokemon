@@ -1,7 +1,7 @@
 "use client";
 
 import { TextField } from "@/components/TextField/TextField";
-import { Grid, Paper, Stack } from "@mui/material";
+import { Grid, Stack } from "@mui/material";
 import { Controller, SubmitHandler, useForm, useWatch } from "react-hook-form";
 import { Trainer, trainerSchema } from "@/api/trainer/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -11,6 +11,7 @@ import { PokemonPreview } from "@/app/PokemonPreview";
 import { PokemonAutocomplete } from "@/app/PokemonAutocomplete";
 import { CreateTrainerSuccessAlert } from "@/app/CreateTrainerSuccessAlert";
 import { useState } from "react";
+import { Paper } from "@/components/Paper/Paper";
 
 interface CreateTrainerFormProps {
   pokemonListQuery: PokemonListQueryOptions;
@@ -34,7 +35,7 @@ export function CreateTrainerForm({
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Grid container spacing={3}>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <Controller
             control={control}
             name="name"
@@ -50,7 +51,7 @@ export function CreateTrainerForm({
             )}
           />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <Controller
             control={control}
             name="age"
@@ -85,7 +86,7 @@ export function CreateTrainerForm({
           />
         </Grid>
         <Grid item xs={12}>
-          <Paper variant="outlined">
+          <Paper>
             <Stack
               alignItems="center"
               justifyContent="center"

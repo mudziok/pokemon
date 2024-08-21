@@ -9,8 +9,19 @@ export function CreateTrainerSuccessAlert({
   onReset: () => void;
 }) {
   return (
-    <Dialog open={isOpen} onClose={onReset}>
-      <Stack padding={4} gap={4} minWidth={380} alignItems="center">
+    <Dialog
+      open={isOpen}
+      onClose={onReset}
+      PaperProps={{
+        sx: {
+          width: "100%",
+          maxWidth: 380,
+          borderRadius: "2px",
+          boxShadow: "0px 4px 10px 2px #0000001A",
+        },
+      }}
+    >
+      <Stack padding={4} gap={4} alignItems="center">
         <Typography fontSize={40}>Success</Typography>
         <Button onClick={onReset} autoFocus>
           Reset form
