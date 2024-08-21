@@ -19,7 +19,10 @@ export const TextFieldInput = styled(InputBase)(({ theme }) => ({
     backgroundColor: theme.palette.background.default,
     border: "1px solid",
     borderColor: theme.palette.grey[400],
-    fontSize: 14,
+    fontSize: 16,
+    [theme.breakpoints.up("sm")]: {
+      fontSize: 14,
+    },
     width: "auto",
     padding: "14px 10px",
     transition: theme.transitions.create(["border-color", "box-shadow"], {
