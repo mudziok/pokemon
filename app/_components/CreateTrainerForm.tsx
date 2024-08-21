@@ -61,6 +61,7 @@ export function CreateTrainerForm({
                 placeholder="Trainer's age"
                 label="Trainer's age"
                 id="age"
+                inputProps={{ inputMode: "numeric" }}
                 errorText={error?.message}
                 {...field}
               />
