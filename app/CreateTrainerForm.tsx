@@ -1,75 +1,16 @@
 "use client";
 
 import { TextField } from "@/components/TextField/TextField";
-import Autocomplete, {
-  AutocompleteProps,
-} from "@/components/Autocomplete/Autocomplete";
-import { Grid, Paper, Stack, Typography } from "@mui/material";
-import { useQuery } from "@tanstack/react-query";
-import { getPokemon } from "@/api/pokemon/api";
-import { useState } from "react";
-import { PokedexEntry } from "@/components/PokedexEntry/PokedexEntry";
+import { Grid, Paper, Stack } from "@mui/material";
 import { Controller, SubmitHandler, useForm, useWatch } from "react-hook-form";
 import { Trainer, trainerSchema } from "@/api/trainer/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { PokemonSummary } from "@/api/pokemon/schema";
-import { capitalize } from "@/utils/capitalize";
 import { Button } from "@/components/Button/Button";
 import { PokemonListQueryOptions, PokemonQuery } from "@/api/pokemon/query";
-
-const PokemonAutocomplete = (
-  props: Omit<AutocompleteProps<PokemonSummary>, "options"> & {
-    pokemonListQuery: PokemonListQueryOptions;
-  }
-) => {
-  const { pokemonListQuery, ...inputProps } = props;
-  const [inputValue, setInputValue] = useState("");
-  const { data: pokemonList = [], isLoading } = useQuery(
-    pokemonListQuery({ name: inputValue })
-  );
-
-  return (
-    <Autocomplete
-      inputValue={inputValue}
-      onInputChange={(_, value) => setInputValue(value)}
-      getOptionLabel={(option) => capitalize(option.name)}
-      isOptionEqualToValue={(option, value) => option.id === value.id}
-      loading={isLoading}
-      options={pokemonList}
-      {...inputProps}
-    />
-  );
-};
-
-const PokemonPreview = ({
-  pokemonId,
-  pokemonQuery,
-}: {
-  pokemonId?: PokemonSummary["id"];
-  pokemonQuery: PokemonQuery;
-}) => {
-  const { data: pokemon, isLoading } = useQuery(
-    pokemonQuery({ id: pokemonId })
-  );
-
-  if (isLoading) {
-    return (
-      <Typography color={(theme) => theme.palette.grey[200]}>
-        Loading...
-      </Typography>
-    );
-  }
-
-  if (!pokemon) {
-    return (
-      <Typography color={(theme) => theme.palette.grey[200]}>
-        Your pokemon
-      </Typography>
-    );
-  }
-
-  return <PokedexEntry pokemon={pokemon} />;
-};
+import { PokemonPreview } from "@/app/PokemonPreview";
+import { PokemonAutocomplete } from "@/app/PokemonAutocomplete";
+import { CreateTrainerSuccessAlert } from "@/app/CreateTrainerSuccessAlert";
+import { useState } from "react";
 
 interface CreateTrainerFormProps {
   pokemonListQuery: PokemonListQueryOptions;
@@ -80,10 +21,12 @@ export function CreateTrainerForm({
   pokemonListQuery,
   pokemonQuery,
 }: CreateTrainerFormProps) {
+  const [isSuccessAlertOpen, setIsSuccessAlertOpen] = useState(false);
+
   const { handleSubmit, control, reset } = useForm<Trainer>({
     resolver: zodResolver(trainerSchema),
   });
-  const onSubmit: SubmitHandler<Trainer> = (data) => {};
+  const onSubmit: SubmitHandler<Trainer> = () => setIsSuccessAlertOpen(true);
 
   const { pokemon: selectedPokemon } = useWatch({ control });
   const selectedPokemonId = selectedPokemon?.id;
@@ -170,6 +113,13 @@ export function CreateTrainerForm({
           </Stack>
         </Grid>
       </Grid>
+      <CreateTrainerSuccessAlert
+        isOpen={isSuccessAlertOpen}
+        onReset={() => {
+          setIsSuccessAlertOpen(false);
+          reset({});
+        }}
+      />
     </form>
   );
 }
