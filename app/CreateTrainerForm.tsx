@@ -4,7 +4,7 @@ import { TextField } from "@/components/TextField/TextField";
 import Autocomplete, {
   AutocompleteProps,
 } from "@/components/Autocomplete/Autocomplete";
-import { Grid } from "@mui/material";
+import { Grid, Paper, Stack, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { getPokemon, getPokemonList } from "@/api/pokemon/api";
 import { useState } from "react";
@@ -13,6 +13,7 @@ import { Controller, SubmitHandler, useForm, useWatch } from "react-hook-form";
 import { Trainer, trainerSchema } from "@/api/trainer/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PokemonSummary } from "@/api/pokemon/schema";
+import { capitalize } from "@/utils/capitalize";
 
 const PokemonAutocomplete = (
   props: Omit<AutocompleteProps<PokemonSummary>, "options">
@@ -27,13 +28,42 @@ const PokemonAutocomplete = (
     <Autocomplete
       inputValue={inputValue}
       onInputChange={(_, value) => setInputValue(value)}
-      getOptionLabel={(option) => option.name}
+      getOptionLabel={(option) => capitalize(option.name)}
       isOptionEqualToValue={(option, value) => option.id === value.id}
       loading={isLoading}
       options={pokemonList}
       {...props}
     />
   );
+};
+
+const PokemonPreview = ({
+  pokemonId,
+}: {
+  pokemonId?: PokemonSummary["id"];
+}) => {
+  const { data: pokemon, isLoading } = useQuery({
+    queryKey: ["pokemon", pokemonId],
+    queryFn: () => getPokemon({ id: pokemonId }),
+  });
+
+  if (isLoading) {
+    return (
+      <Typography color={(theme) => theme.palette.grey[200]}>
+        Loading...
+      </Typography>
+    );
+  }
+
+  if (!pokemon) {
+    return (
+      <Typography color={(theme) => theme.palette.grey[200]}>
+        Your pokemon
+      </Typography>
+    );
+  }
+
+  return <PokedexEntry pokemon={pokemon} />;
 };
 
 export function CreateTrainerForm() {
@@ -45,11 +75,6 @@ export function CreateTrainerForm() {
 
   const { pokemon: selectedPokemon } = useWatch({ control });
   const selectedPokemonId = selectedPokemon?.id;
-
-  const { data: pokemon } = useQuery({
-    queryKey: ["pokemon", selectedPokemonId],
-    queryFn: () => getPokemon({ id: selectedPokemonId }),
-  });
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -101,7 +126,16 @@ export function CreateTrainerForm() {
           />
         </Grid>
         <Grid item xs={12}>
-          <PokedexEntry pokemon={pokemon ?? undefined} />
+          <Paper variant="outlined">
+            <Stack
+              alignItems="center"
+              justifyContent="center"
+              minHeight={254}
+              padding={2}
+            >
+              <PokemonPreview pokemonId={selectedPokemonId} />
+            </Stack>
+          </Paper>
         </Grid>
       </Grid>
     </form>
